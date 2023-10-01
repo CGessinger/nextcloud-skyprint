@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <!--
+    SPDX-FileCopyrightText: Christian Gessinger <christian@gessinger.de>
+    SPDX-License-Identifier: CC0-1.0
+    -->
+    <id>cloudprint</id>
+    <name>Cloud Print</name>
+    <summary>ToDo</summary>
+    <description><![CDATA[ToDo]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="christian@gessinger.de" homepage="https://github.com/CGessinger">Christian Gessinger</author>
+    <namespace>CloudPrint</namespace>
+    <category>files</category>
+    <bugs>https://github.com/CGessinger</bugs>
+    <dependencies>
+        <nextcloud min-version="25" max-version="27"/>
+    </dependencies>
+    <settings>
+        <admin>OCA\CloudPrint\Settings\CloudprintAdmin</admin>
+        <admin-section>OCA\CloudPrint\Sections\CloudprintAdmin</admin-section>
+    </settings>
+</info>
