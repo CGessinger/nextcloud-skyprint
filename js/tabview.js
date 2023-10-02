@@ -78,7 +78,7 @@
                 };
 
                 $.ajax({
-                    type: 'GET',
+                    type: 'POST',
                     url: printfileUrl,
                     dataType: 'json',
                     data: data,
