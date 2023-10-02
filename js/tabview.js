@@ -31,6 +31,15 @@
                 return `<option value="${printer.id}">${printer.name}</option>`;
             });
 
+            const nupOptions = [
+                '<option value="1">1</option>',
+                '<option value="2">2</option>',
+                '<option value="4">4</option>',
+                '<option value="6">6</option>',
+                '<option value="9">9</option>',
+                '<option value="16">16</option>',
+            ]
+
             this.$el.html(
                 '<form style="display: flex; flex-direction: column;"/>' +
                 '<div>Printer</div>' +
@@ -47,6 +56,10 @@
                 '<select id="media">' +
                 '<option value="a4">A4</option> <option value="letter">Letter</option> <option value="Legal">Legal</option>' +
                 '</select>' +
+                '<div>Documents per Page</div>' +
+                '<select id="nup">' +
+                nupOptions.join(' ') +
+                '</select>' +
                 '<input type="submit" name="submitButton" value="Print">' +
                 '</form>'
             );
@@ -61,6 +74,7 @@
                     orientation: event.target.orientation.value,
                     media: event.target.media.value,
                     range: event.target.range.value,
+                    nup: event.target.nup.value,
                 };
 
                 $.ajax({
