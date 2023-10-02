@@ -41,6 +41,8 @@
                 '<select id="orientation">' +
                 '<option value="3">Portrait</option> <option value="4">Landscape</option> <option value="5">Reverse Landscape</option> <option value="6">Reverse Portrait</option>' +
                 '</select>' +
+                '<div>Range (leave empty for all pages)</div>' +
+                '<input type="number" id="range" value="" placeholder="e.g. 2-6,9,12-16"/>' +
                 '<div>Papersize</div>' +
                 '<select id="media">' +
                 '<option value="a4">A4</option> <option value="letter">Letter</option> <option value="Legal">Legal</option>' +
@@ -58,6 +60,7 @@
                     copies: event.target.copies.value,
                     orientation: event.target.orientation.value,
                     media: event.target.media.value,
+                    range: event.target.range.value,
                 };
 
                 $.ajax({
@@ -80,7 +83,7 @@
             var mimetype = fileInfo.get('mimetype') || '';
 
             return (['image/gif', 'image/heic', 'image/jpeg', 'image/png', 'image/tiff', 'image/x-dcraw',
-                'application/pdf'].indexOf(mimetype) > -1);
+                'application/pdf', 'text/plain'].indexOf(mimetype) > -1);
         },
     });
 

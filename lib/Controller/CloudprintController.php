@@ -15,10 +15,10 @@ class CloudprintController extends Controller
         $this->printService = $printService;
     }
 
-    public function printfile(string $printer, string $file, int $copies, string $orientation, string $media)
+    public function printfile(string $printer, string $file, int $copies, string $orientation, string $media, string $range)
     {
         return new JSONResponse(
-            $this->printService->print($printer, $file, $copies, $orientation, $media)
+            $this->printService->print($printer, $file, $copies, $orientation, $media, $range)
         );
     }
 

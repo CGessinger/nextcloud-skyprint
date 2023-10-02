@@ -14,11 +14,11 @@ class PrintService
         OC_Util::setupFS();
     }
 
-    public function print(string $printer, string $file, int $copies, string $orientation, string $media)
+    public function print(string $printer, string $file, int $copies, string $orientation, string $media, string $range)
     {
         $file = Filesystem::getLocalFile($file);
 
-        $command = "lp -d $printer $file -n $copies -o orientation-requested=$orientation -o media=$media";
+        $command = "lp -d $printer $file -n $copies -o orientation-requested=$orientation -o media=$media -o page-ranges=$range";
         $process = new Process($command);
         $process->run();
 
