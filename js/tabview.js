@@ -24,7 +24,6 @@
                 async: false,
                 success: function (data) {
                     printers = data.printers;
-                    console.debug('printer: ', data);
                 }
             });
 
@@ -42,7 +41,10 @@
                 '<select id="orientation">' +
                 '<option value="3">Portrait</option> <option value="4">Landscape</option> <option value="5">Reverse Landscape</option> <option value="6">Reverse Portrait</option>' +
                 '</select>' +
-                '<input type="submit" name="submitButton" value="Preview">' +
+                '<div>Papersize</div>' +
+                '<select id="media">' +
+                '<option value="a4">A4</option> <option value="letter">Letter</option> <option value="Legal">Legal</option>' +
+                '</select>' +
                 '<input type="submit" name="submitButton" value="Print">' +
                 '</form>'
             );
@@ -50,15 +52,13 @@
             this.$el.on('submit', 'form', function (event) {
                 event.preventDefault();
 
-                const preview = event.originalEvent.submitter.value === 'Preview';
                 const data = {
                     printer: event.target.printer.value,
-                    preview: preview,
                     file: fileInfo.getFullPath(),
                     copies: event.target.copies.value,
                     orientation: event.target.orientation.value,
+                    media: event.target.media.value,
                 };
-                console.debug('submit: ', data);
 
                 $.ajax({
                     type: 'GET',

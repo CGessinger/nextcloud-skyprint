@@ -14,21 +14,18 @@ class PrintService
         OC_Util::setupFS();
     }
 
-    public function print(string $printer, string $file, string $orientation, int $copies)
+    public function print(string $printer, string $file, int $copies, string $orientation, string $media)
     {
         $file = Filesystem::getLocalFile($file);
 
-        $command = "lp -d $printer $file -o orientation-requested=$orientation -n $copies";
+        $command = "lp -d $printer $file -n $copies -o orientation-requested=$orientation -o media=$media";
         $process = new Process($command);
         $process->run();
 
-        $success = $process->isSuccessful();
-        $error = $process->getErrorOutput();
-
         return array(
-            'success' => $success,
-            'error' => $error,
-            'command' => $command,
+            'success' => $process->isSuccessful(),
+            'error' => $process->getErrorOutput(),
+            'command' => $process->getCommandLine(),
             'output' => $process->getOutput()
         );
     }
