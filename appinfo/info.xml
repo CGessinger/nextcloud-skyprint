@@ -7,9 +7,9 @@
     -->
     <id>cloudprint</id>
     <name>Cloud Print</name>
-    <summary>ToDo</summary>
-    <description><![CDATA[ToDo]]></description>
-    <version>0.0.1</version>
+    <summary>Print documents directly from your cloud-storage</summary>
+    <description><![CDATA[A straightforward app enabling users to easily print documents directly from your cloud storage. With CloudPrint, you can adjust a variety of print settings, such as paper size, orientation and quality.]]></description>
+    <version>0.1.0</version>
     <licence>agpl</licence>
     <author mail="christian@gessinger.de" homepage="https://github.com/CGessinger">Christian Gessinger</author>
     <namespace>CloudPrint</namespace>

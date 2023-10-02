@@ -25,9 +25,9 @@ class PrintService
 
         return array(
             'success' => $process->isSuccessful(),
-            'error' => $process->getErrorOutput(),
-            'command' => $process->getCommandLine(),
-            'output' => $process->getOutput()
+            'error' => $process->getErrorOutput()
+            // 'command' => $process->getCommandLine(), // Only for debugging
+            // 'output' => $process->getOutput() // Only for debugging
         );
     }
 
