@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # SkyPrint
 
-This is a beta version of new and improved nextcloud printing app. Please feel encouraged to report any bugs in the issues section of this repository.
+This is the beta version of a new and improved nextcloud printing app. Please feel encouraged to report any bugs in the issues section of this repository.
 
 ![skyprint interface](screenshots/interface_v0_1_0.png)
 
