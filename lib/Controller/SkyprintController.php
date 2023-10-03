@@ -15,6 +15,9 @@ class SkyprintController extends Controller
         $this->printService = $printService;
     }
 
+	/**
+	 * @NoAdminRequired
+	 */
     public function printfile(string $printer, string $file, int $copies, string $orientation, string $media, string $range, int $nup)
     {
         return new JSONResponse(
@@ -22,6 +25,9 @@ class SkyprintController extends Controller
         );
     }
 
+	/**
+	 * @NoAdminRequired
+	 */
     public function printers()
     {
         return new JSONResponse(
