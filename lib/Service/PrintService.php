@@ -1,5 +1,5 @@
 <?php
-namespace OCA\CloudPrint\Service;
+namespace OCA\SkyPrint\Service;
 
 use OC_Util;
 use OC\Files\Filesystem;

@@ -1,10 +1,10 @@
 (function () {
-    var CloudPrintTabView = OCA.Files.DetailTabView.extend({
-        id: 'cloudprintTabView',
-        className: 'tab cloudprintTabView',
+    var SkyPrintTabView = OCA.Files.DetailTabView.extend({
+        id: 'skyprintTabView',
+        className: 'tab skyprintTabView',
 
         getLabel: function () {
-            return t('cloudprint', 'CloudPrint');
+            return t('skyprint', 'SkyPrint');
         },
 
         getIcon: function () {
@@ -13,8 +13,8 @@
 
         render: function () {
             const fileInfo = this.getFileInfo();
-            const printfileUrl = OC.generateUrl('/apps/cloudprint/printfile');
-            const getPrintersUrl = OC.generateUrl('/apps/cloudprint/printers');
+            const printfileUrl = OC.generateUrl('/apps/skyprint/printfile');
+            const getPrintersUrl = OC.generateUrl('/apps/skyprint/printers');
 
             let printers = [];
             $.ajax({
@@ -101,9 +101,7 @@
         },
     });
 
-    OCA.CloudPrint = OCA.CloudPrint || {};
+    OCA.SkyPrint = OCA.SkyPrint || {};
 
-    OCA.CloudPrint.CloudPrintTabView = CloudPrintTabView;
-
-    console.debug('CloudPrint tabview loaded');
+    OCA.SkyPrint.SkyPrintTabView = SkyPrintTabView;
 })();

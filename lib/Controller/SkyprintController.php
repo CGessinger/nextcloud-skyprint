@@ -1,12 +1,12 @@
 <?php
-namespace OCA\CloudPrint\Controller;
+namespace OCA\SkyPrint\Controller;
 
-use OCA\CloudPrint\Service\PrintService;
+use OCA\SkyPrint\Service\PrintService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 
-class CloudprintController extends Controller
+class SkyprintController extends Controller
 {
 
     public function __construct($appName, IRequest $request, PrintService $printService)
