@@ -12,8 +12,6 @@
         },
 
         render: function () {
-            const fileInfo = this.getFileInfo();
-            const printfileUrl = OC.generateUrl('/apps/skyprint/printfile');
             const getPrintersUrl = OC.generateUrl('/apps/skyprint/printers');
 
             let printers = [];
@@ -41,7 +39,7 @@
             ]
 
             this.$el.html(
-                '<form style="display: flex; flex-direction: column;"/>' +
+                '<form style="display: flex; flex-direction: column;" id="printer-options"/>' +
                 '<div>Printer</div>' +
                 '<select id="printer">' + printerOptions.join('') + '</select>' +
                 '<div>Copies</div>' +
@@ -64,29 +62,36 @@
                 '</form>'
             );
 
-            this.$el.on('submit', 'form', function (event) {
-                event.preventDefault();
+            this.delegateEvents({
+                'submit #printer-options': 'submitPrint'
+            });
+        },
 
-                const data = {
-                    printer: event.target.printer.value,
-                    file: fileInfo.getFullPath(),
-                    copies: event.target.copies.value,
-                    orientation: event.target.orientation.value,
-                    media: event.target.media.value,
-                    range: event.target.range.value,
-                    nup: event.target.nup.value,
-                };
+        submitPrint: function (event) {
+            event.preventDefault();
 
-                $.ajax({
-                    type: 'POST',
-                    url: printfileUrl,
-                    dataType: 'json',
-                    data: data,
-                    async: true,
-                    success: function (data) {
-                        console.debug('success', data);
-                    }
-                });
+            const fileInfo = this.getFileInfo();
+            const printfileUrl = OC.generateUrl('/apps/skyprint/printfile');
+
+            const data = {
+                printer: event.target.printer.value,
+                file: fileInfo.getFullPath(),
+                copies: event.target.copies.value,
+                orientation: event.target.orientation.value,
+                media: event.target.media.value,
+                range: event.target.range.value,
+                nup: event.target.nup.value,
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: printfileUrl,
+                dataType: 'json',
+                data: data,
+                async: true,
+                success: function (data) {
+                    console.debug('success', data);
+                }
             });
         },
 
