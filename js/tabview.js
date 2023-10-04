@@ -90,7 +90,7 @@
                 data: data,
                 async: true,
                 success: function (data) {
-                    console.debug('success', data);
+                    OC.Notification.show(data.message);
                 }
             });
         },

@@ -3,14 +3,18 @@ namespace OCA\SkyPrint\Service;
 
 use OC_Util;
 use OC\Files\Filesystem;
+use Psr\Log\LoggerInterface;
 
 use Symfony\Component\Process\Process;
 
 
 class PrintService
 {
-    public function __construct()
+    private LoggerInterface $logger;
+
+    public function __construct(LoggerInterface $logger)
     {
+        $this->logger = $logger;
         OC_Util::setupFS();
     }
 
@@ -23,9 +27,19 @@ class PrintService
         $process = new Process($command);
         $process->run();
 
+        $success = $process->isSuccessful();
+        $message = "Printing successful!";
+
+        if (!$success) {
+            $error = $process->getErrorOutput();
+            $log_message = "Printing failed: $command with output: $error";
+            $this->logger->error($log_message, ['skyprint' => 'skyprint printing error']);
+            $message = "Printing failed! Check logs for more information.";
+        }
+
         return array(
-            'success' => $process->isSuccessful(),
-            'error' => $process->getErrorOutput()
+            'success' => $success,
+            'message' => $message
             // 'command' => $process->getCommandLine(), // Only for debugging
             // 'output' => $process->getOutput() // Only for debugging
         );
