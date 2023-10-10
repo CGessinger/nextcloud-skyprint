@@ -15,6 +15,8 @@ class PrintService
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
+        $this->testsDir = realpath(__DIR__ . "/../../ipptool");
+        $this->localipp = "ipp://localhost/printers";
         OC_Util::setupFS();
     }
 
@@ -32,8 +34,8 @@ class PrintService
 
         if (!$success) {
             $error = $process->getErrorOutput();
-            $log_message = "Printing failed: $command with output: $error";
-            $this->logger->error($log_message, ['skyprint' => 'skyprint printing error']);
+            $logMessage = "Printing failed: $command with output: $error";
+            $this->logger->error($logMessage, ['skyprint' => 'skyprint printing error']);
             $message = "Printing failed! Check logs for more information.";
         }
 
@@ -47,7 +49,8 @@ class PrintService
 
     public function getPrinters()
     {
-        $process = new Process("lpstat -p | awk '{print $2}'");
+        $testfile = realpath($this->testsDir . '/get-printers.test');
+        $process = new Process(['ipptool', '-c', $this->localipp, $testfile]);
         $process->run();
 
         $success = $process->isSuccessful();
@@ -64,6 +67,7 @@ class PrintService
                 },
                 explode("\n", $process->getOutput())
             );
+            array_shift($printers);
             array_pop($printers);
         }
 
