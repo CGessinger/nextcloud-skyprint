@@ -23,7 +23,7 @@ class PrintService
         $file = Filesystem::getLocalFile($file);
 
         $pageranges = $range ? "-o page-ranges=$range" : "";
-        $command = "lp -d $printer $file -n $copies -o orientation-requested=$orientation -o media=$media $pageranges -o number-up=$nup";
+        $command = "lp -d $printer \"$file\" -n $copies -o orientation-requested=$orientation -o media=$media $pageranges -o number-up=$nup";
         $process = new Process($command);
         $process->run();
 
