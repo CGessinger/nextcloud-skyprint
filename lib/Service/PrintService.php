@@ -22,8 +22,23 @@ class PrintService
     {
         $file = Filesystem::getLocalFile($file);
 
-        $pageranges = $range ? "-o page-ranges=$range" : "";
-        $command = "lp -d $printer \"$file\" -n $copies -o orientation-requested=$orientation -o media=$media $pageranges -o number-up=$nup";
+        $range = $range ? $range : 1 - 999;
+        $command = array(
+            "lp",
+            "-d",
+            $printer,
+            $file,
+            "-n",
+            $copies,
+            "-o",
+            "orientation-requested=$orientation",
+            "-o",
+            "media=$media",
+            "-o",
+            "page-ranges=$range",
+            "-o",
+            "number-up=$nup"
+        );
         $process = new Process($command);
         $process->run();
 
@@ -32,6 +47,7 @@ class PrintService
 
         if (!$success) {
             $error = $process->getErrorOutput();
+            $command = $process->getCommandLine();
             $log_message = "Printing failed: $command with output: $error";
             $this->logger->error($log_message, ['skyprint' => 'skyprint printing error']);
             $message = "Printing failed! Check logs for more information.";
@@ -47,7 +63,7 @@ class PrintService
 
     public function getPrinters()
     {
-        $process = new Process("lpstat -p | awk '{print $2}'");
+        $process = Process::fromShellCommandline("lpstat -p | awk '{print $2}'");
         $process->run();
 
         $success = $process->isSuccessful();
