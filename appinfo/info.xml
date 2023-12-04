@@ -9,7 +9,7 @@
     <name>SkyPrint</name>
     <summary>Print documents directly from your cloud-storage</summary>
     <description><![CDATA[A straightforward app enabling users to easily print documents directly from your cloud storage. With Sky Print, you can adjust a variety of print settings, such as paper size, orientation and quality.]]></description>
-    <version>0.1.4</version>
+    <version>0.1.5</version>
     <licence>agpl</licence>
     <author mail="christian@gessinger.de">Christian Gessinger</author>
     <website>https://github.com/CGessinger/nextcloud-skyprint</website>
