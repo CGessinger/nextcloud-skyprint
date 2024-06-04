@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace OCA\SkyPrint\Service;
 
 use OC_Util;
@@ -22,7 +24,7 @@ class PrintService
     {
         $file = Filesystem::getLocalFile($file);
 
-        $range = $range ? $range : 1 - 999;
+        $range = $range ? $range : "1 - 999";
         $command = array(
             "lp",
             "-d",
