@@ -25,11 +25,9 @@ class PrintService
     public function print(string $printer, string $file, int $copies, string $orientation, string $media, string $range, int $nup)
     {
         $file = Filesystem::getLocalFile($file);
-
-        // $pageranges = $range ? "-o page-ranges=$range" : "";
-        // $command = "lp -d $printer $file -n $copies -o orientation-requested=$orientation -o media=$media $pageranges -o number-up=$nup";
-
+        
         $printerURI = $this->localipp . '/' . $printer;
+        $range = $range ? $range : "1-999";
         $testFile = realpath($this->testsDir . '/print-job.test');
 
         $command = array(
@@ -43,7 +41,7 @@ class PrintService
             '-d',
             "media=$media",
             '-d',
-            "ranges=0-9999",
+            "ranges=$range",
             '-d',
             "number-up=$nup",
             $printerURI,
