@@ -10,7 +10,8 @@ use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
-use \OCP\Util;
+use OCA\Files\Event\LoadSidebar;
+use OCA\SkyPrint\Listener\LoadSidebarListener;
 
 class Application extends App implements IBootstrap
 {
@@ -23,16 +24,8 @@ class Application extends App implements IBootstrap
 
 	public function register(IRegistrationContext $context): void
 	{
+		$context->registerEventListener(LoadSidebar::class, LoadSidebarListener::class);
 	}
 
-	public function boot(IBootContext $context): void
-	{
-		$server = $context->getServerContainer();
-		$eventDispatcher = $server->getEventDispatcher();
-
-		$eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function () {
-			Util::addScript(self::APP_ID, 'tabview');
-			Util::addScript(self::APP_ID, 'plugin');
-		});
-	}
+	public function boot(IBootContext $context): void { }
 }
