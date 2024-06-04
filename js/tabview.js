@@ -90,6 +90,7 @@
                 data: data,
                 async: true,
                 success: function (data) {
+                    console.log(data);
                     OC.Notification.show(data.message);
                 }
             });

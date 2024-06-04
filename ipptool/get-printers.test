@@ -1,7 +1,7 @@
 # Get printer attributes using get-printer-attributes
 {
 	# The name of the test...
-	NAME "CUPS-Get-Printers"
+	NAME "Skyprint Get-Printers"
 
 	# The operation to use
 	OPERATION CUPS-Get-Printers

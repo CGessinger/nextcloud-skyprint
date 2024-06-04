@@ -24,8 +24,29 @@ class PrintService
     {
         $file = Filesystem::getLocalFile($file);
 
-        $pageranges = $range ? "-o page-ranges=$range" : "";
-        $command = "lp -d $printer $file -n $copies -o orientation-requested=$orientation -o media=$media $pageranges -o number-up=$nup";
+        // $pageranges = $range ? "-o page-ranges=$range" : "";
+        // $command = "lp -d $printer $file -n $copies -o orientation-requested=$orientation -o media=$media $pageranges -o number-up=$nup";
+
+        $printerURI = $this->localipp . '/' . $printer;
+        $testFile = realpath($this->testsDir . '/print-job.test');
+
+        $command = array(
+            'ipptool',
+            '-f',
+            $file,
+            '-d',
+            "copies=$copies",
+            '-d',
+            "orientation-requested=$orientation",
+            '-d',
+            "media=$media",
+            '-d',
+            "ranges=0-9999",
+            '-d',
+            "number-up=$nup",
+            $printerURI,
+            $testFile
+        );
         $process = new Process($command);
         $process->run();
 
@@ -34,6 +55,8 @@ class PrintService
 
         if (!$success) {
             $error = $process->getErrorOutput();
+            $error = preg_match('/status-message=".*"/', $error, $matches) ? $matches[1] : $error;
+            $command = $process->getCommandLine();
             $logMessage = "Printing failed: $command with output: $error";
             $this->logger->error($logMessage, ['skyprint' => 'skyprint printing error']);
             $message = "Printing failed! Check logs for more information.";
@@ -41,7 +64,7 @@ class PrintService
 
         return array(
             'success' => $success,
-            'message' => $message
+            'message' => $message,
             // 'command' => $process->getCommandLine(), // Only for debugging
             // 'output' => $process->getOutput() // Only for debugging
         );
@@ -49,8 +72,8 @@ class PrintService
 
     public function getPrinters()
     {
-        $testfile = realpath($this->testsDir . '/get-printers.test');
-        $process = new Process(['ipptool', '-c', $this->localipp, $testfile]);
+        $testFile = realpath($this->testsDir . '/get-printers.test');
+        $process = new Process(['ipptool', '-c', $this->localipp, $testFile]);
         $process->run();
 
         $success = $process->isSuccessful();

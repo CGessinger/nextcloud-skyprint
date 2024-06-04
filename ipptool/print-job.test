@@ -1,0 +1,33 @@
+# Print a test page using print-job
+{
+	# The name of the test...
+	NAME "Skyprint Print-Job"
+
+	# The operation to use
+	OPERATION Print-Job
+
+	# Attributes, starting in the operation group...
+	GROUP operation-attributes-tag
+	ATTR charset attributes-charset utf-8
+	ATTR language attributes-natural-language en
+	ATTR uri printer-uri $uri
+	ATTR name requesting-user-name $user
+	ATTR mimeMediaType document-format $filetype
+
+	GROUP job-attributes-tag
+	ATTR integer copies $copies
+	ATTR keyword orientation-requested $orientation-requested
+	ATTR keyword media $media
+	ATTR keyword page-ranges $ranges
+	ATTR integer number-up $number-up
+
+	FILE $filename
+
+	# What statuses are OK?
+	STATUS successful-ok
+	STATUS successful-ok-ignored-or-substituted-attributes
+
+	# What attributes do we expect?
+	EXPECT job-id
+	EXPECT job-uri
+}
