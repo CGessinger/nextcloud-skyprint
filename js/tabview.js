@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 return (['image/gif', 'image/heic', 'image/jpeg', 'image/png', 'image/tiff', 'image/x-dcraw',
                     'application/pdf', 'text/plain'].includes(mimetype));
             }
-        }))
+        }));
     }
 });
 
@@ -67,7 +67,7 @@ class SkyprintTab {
             '<option value="6">6</option>',
             '<option value="9">9</option>',
             '<option value="16">16</option>',
-        ]
+        ];
 
         this.$el.html(
             '<form style="display: flex; flex-direction: column;" id="printer-form"/>' +
